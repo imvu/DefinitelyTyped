@@ -2705,7 +2705,23 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.partition
 	**/
-	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[][]>;
+        /**
+        *
+        * After updating Underscore from 1.6.0 to 1.7.0,
+        * this line is causing compile errors of the form:
+        * "A generic type may not reference itself with a wrapped form of its own type parameters"
+        *
+        * We don't know whether this is genuine type-unsafe behavior in
+        * Underscore, or a bug in DefinitelyTyped. 
+        * 
+        * Since we don't rely heavily on TypeScript, we're reporting the error
+        * to DefinitelyTyped and simply commenting out this line.
+        * -jlaird (and jschedler and andy)
+        *
+        **/
+        /**
+        *partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[][]>;
+	**/
 
 	/**
 	* Wrapped type `any[][]`.
@@ -3157,6 +3173,7 @@ interface _Chain<T> {
 interface _ChainSingle<T> {
 	value(): T;
 }
+
 interface _ChainOfArrays<T> extends _Chain<T[]> {
 	flatten(): _Chain<T>;
 }
